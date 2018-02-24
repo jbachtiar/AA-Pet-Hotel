@@ -1,4 +1,5 @@
 public class Room{
+    // Set room, food, water and shampoo capacity
     private final int CAPACITY = 10;
     private final int FOOD = 10;
     private final int WATER = 10;
@@ -11,7 +12,7 @@ public class Room{
     private int availWater;
     private int availShampoo;
     
-
+    // intialises empty room and full supply
     public Room(int id){
         this.id = id;
         this.occupancy = 0;
@@ -20,6 +21,12 @@ public class Room{
         this.availShampoo = this.SHAMPOO;
     }
 
+    // get the room ID
+    public int getId(){
+        return this.id;
+    }
+
+    // Restore the shampoo, food, and water supply
     public void restoreShampoo(){
         this.availShampoo = this.SHAMPOO;
     }
@@ -30,6 +37,7 @@ public class Room{
         this.availWater = this.WATER;
     }
 
+    // Decrease the available food, water and shampoo by 1  
     public void decreaseFood(){
         this.availFood--;
     }
@@ -39,15 +47,26 @@ public class Room{
     public void decreaseShampoo(){
         this.availShampoo--;
     }
+    // Get available food, water and shampoo
+    public int getAvailableFood(){
+        return this.availFood;
+    }
+    public int getAvailableWater(){
+        return this.availWater;
+    }
+    public int getAvailableShampoo(){
+        return this.availShampoo;
+    }
 
+    // increase room occupancy by 1
     public void increaseOccupancy(){
         this.occupancy++;
     }
-
+    // decerase room occupancy by 1
     public void decreaseOccupancy(){
         this.occupancy++;
     }
-
+    // get room occupancy
     public int getOccupancy(){
         return this.occupancy;
     }
