@@ -8,6 +8,8 @@
  *
  * @author Hui Min
  */
+package objects;
+
 public class LogbookEntry {
     private Dog dog;
     private int roomID;

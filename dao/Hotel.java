@@ -1,8 +1,10 @@
+package dao;
+
 import java.util.ArrayList;
 
 import Room.java;
 
-public class RoomList{
+public class Hotel{
     private ArrayList<Room> roomList;
 
     // create 10 rooms

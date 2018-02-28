@@ -1,3 +1,5 @@
+package objects;
+
 public class Room{
     // Set room, food, water and shampoo capacity
     private final int CAPACITY = 10;

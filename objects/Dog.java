@@ -8,6 +8,8 @@
  *
  * @author Hui Min
  */
+package objects;
+
 public class Dog {
     private String name;
     private String size;
