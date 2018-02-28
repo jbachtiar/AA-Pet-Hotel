@@ -2,14 +2,16 @@ package dao;
 
 import java.util.ArrayList;
 
-import Room.java;
+import objects.*;
 
 public class Hotel{
     private ArrayList<Room> roomList;
+    private int noOfRooms;
 
-    // create 10 rooms
-    public RoomList(){
-        for(int i = 0; i<10; i++){
+    // create 10 rooms from id 1-10
+    public Hotel(int noOfRooms){
+        this.noOfRooms = noOfRooms;
+        for(int i = 1; i<=this.noOfRooms; i++){
             roomList.add(new Room(i));
         }
     }

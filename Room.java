@@ -1,11 +1,11 @@
 package objects;
-
+import java.util.*;
 public class Room{
     // Set room, food, water and shampoo capacity
     private final int CAPACITY = 10;
-    private final int FOOD = 10;
-    private final int WATER = 10;
-    private final int SHAMPOO = 10;
+    private final int FOOD = 100;
+    private final int WATER = 100;
+    private final int SHAMPOO = 100;
     
     private int id;
     private int occupancy;
@@ -13,6 +13,9 @@ public class Room{
     private int availFood;
     private int availWater;
     private int availShampoo;
+
+    private List<Dog> guestDogs;
+    private List<Dog> groomedDogs;
     
     // intialises empty room and full supply
     public Room(int id){
@@ -21,7 +24,10 @@ public class Room{
         this.availFood = this.FOOD;
         this.availWater = this.WATER;
         this.availShampoo = this.SHAMPOO;
+        this.groomedDogs = new List<Dog>();
+        this.guestsDogs = new List<Dog>();
     }
+    
 
     // get the room ID
     public int getId(){
@@ -66,7 +72,7 @@ public class Room{
     }
     // decerase room occupancy by 1
     public void decreaseOccupancy(){
-        this.occupancy++;
+        this.occupancy--;
     }
     // get room occupancy
     public int getOccupancy(){
