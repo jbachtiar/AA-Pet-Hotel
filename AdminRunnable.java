@@ -11,18 +11,14 @@
 
  // as of now read the csv file multithreadedly
 package runnable;
+import main.*;
 public class AdminRunnable implements Runnable{
-    
-    public AdminRunnable(){
-    
-    }
-    
-
 
     @Override
     public void run(){
         //read each row of csv to retrieve each order
         //identify the dog size and find an available room
+        System.out.println(PetHotel.incomingDog1);
         
         //if room is available, allocate a dog to a room and increase the room occupancy
         //ad log book entry to log book for each successful orders
@@ -30,4 +26,6 @@ public class AdminRunnable implements Runnable{
 
         //at the end of the day, check which dog needs to leave on the next day
     }
+
+    
 }

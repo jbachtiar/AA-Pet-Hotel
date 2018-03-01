@@ -24,8 +24,8 @@ public class Room{
         this.availFood = this.FOOD;
         this.availWater = this.WATER;
         this.availShampoo = this.SHAMPOO;
-        this.groomedDogs = new List<Dog>();
-        this.guestsDogs = new List<Dog>();
+        this.groomedDogs = new ArrayList<Dog>();
+        this.guestDogs = new ArrayList<Dog>();
     }
     
 
