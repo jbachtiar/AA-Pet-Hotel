@@ -53,27 +53,6 @@ public class PetHotel {
         admin1.join();
 
         WorkerRunnable wr1 = new WorkerRunnable();
-        //Thread[] threads = new Thread[1];
-
-        /* 		while (!exec.isTerminated() && !exec.isShutdown()) {
-        		  // create all Printer threads and start them 
-        		  for (int i = 0; i < 1; i++) {
-        			threads[i] = new WorkerRunnable(); // pass to constructor a number as a String
-        			exec.submit(threads[i]);
-        		  }
-        
-        		  // main thread will join all Printer threads
-        		  for (int i = 0; i < 1; i++) {
-        			try{
-        				threads[i].join();
-        			}catch(InterruptedException e){
-        				System.out.println(e);
-        			}
-        			//System.out.print("hello");
-        		  }
-        		  System.out.println("\nrunning last statement in main()...");
-        		  exec.shutdown();
-        		} */
         WorkerRunnable wr2 = new WorkerRunnable();
         WorkerRunnable wr3 = new WorkerRunnable();
         WorkerRunnable wr4 = new WorkerRunnable();
@@ -109,7 +88,7 @@ public class PetHotel {
 		for(int i = 0; i < hotel.getRoomList().size(); i++){
 			Room r = hotel.getRoomList().get(i);
 			System.out.println(i + " " + r.getNotGroomedDogs().size() + " supposed to be 0");
-			System.out.println(i + " " + r.getGroomedDogs().size() + "supposed to have 1 dog");
+			System.out.println(i + " " + r.getGroomedDogs().size() + " supposed to have " + r.getOccupancy());
 			System.out.println(i + " " + r.getAvailableFood());	
 		}
 		
