@@ -1,79 +1,111 @@
 package main;
 
 import dao.*;
-import runnable.*;
 import objects.*;
-import java.util.concurrent.*;
+import runnable.*;
+
+import stopwatch.*;
 import java.util.*;
+import java.util.concurrent.*;
 
-public class PetHotel{
-    public static void main(String[] args){
-    // initialises hotel with 10 rooms
-       Hotel hotel = new Hotel(10); 
-	    Logbook logbook = new Logbook();
-		for(int i = 0; i < 10; i++){
-			logbook.entries.add(new LogbookEntry(new Dog("Fifi", "Medium", 3), 8, 1, 3));
-		}
-		//get the executor with the number of workers in 
-	    //ExecutorService exec = Executors.newFixedThreadPool(1);
-		WorkerRunnable wr1 = new WorkerRunnable();
-		//Thread[] threads = new Thread[1];
-		
-/* 		while (!exec.isTerminated() && !exec.isShutdown()) {
-		  // create all Printer threads and start them 
-		  for (int i = 0; i < 1; i++) {
-			threads[i] = new WorkerRunnable(); // pass to constructor a number as a String
-			exec.submit(threads[i]);
-		  }
+import com.sun.javafx.binding.ListExpressionHelper;
 
-		  // main thread will join all Printer threads
-		  for (int i = 0; i < 1; i++) {
-			try{
-				threads[i].join();
-			}catch(InterruptedException e){
-				System.out.println(e);
-			}
-			//System.out.print("hello");
-		  }
-		  System.out.println("\nrunning last statement in main()...");
-		  exec.shutdown();
-		} */
- 		WorkerRunnable wr2 = new WorkerRunnable();
-		WorkerRunnable wr3 = new WorkerRunnable();
-		WorkerRunnable wr4 = new WorkerRunnable();
-		WorkerRunnable wr5 = new WorkerRunnable();
-		WorkerRunnable wr6 = new WorkerRunnable();
-		wr1.start();
-		wr2.start();
-		wr3.start();
-		wr4.start();
-		wr5.start();
-		wr6.start();
-		
-		try{
-			wr1.join();
-			wr2.join();
-			wr3.join();
-			wr4.join();
-			wr5.join();
-			wr6.join();
-		}catch(InterruptedException e){
-			e.printStackTrace();
-		}
-		//exec.submit(wr1);
-/* 		exec.submit(wr2);
-		exec.submit(wr3);
-		exec.submit(wr4);
-		exec.submit(wr5);
-		exec.submit(wr6); */
-		try{
-			wr1.join();
-			System.out.println("wr1 join");
-		}catch(InterruptedException e){
-			e.printStackTrace();
-		}
-		
-		//exec.shutdown();
+import java.io.*;
+import java.nio.file.*;
+
+public class PetHotel {
+    public static List<Dog> incomingDog1 = new ArrayList<Dog>();
+
+    public static void main(String[] args) throws InterruptedException {
+        // Read from csv files the order in day1
+        try {
+            incomingDog1 = getDogs("Dog_Entries.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int noOfAdmin = 2;
+        int totalOrder = incomingDog1.size();
+        int eachAdmin = totalOrder / noOfAdmin;
+
+        // initialises hotel
+        Hotel hotel = new Hotel(10);
+
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        System.out.println("Pet Hotel Simulation begins...");
+        System.out.println("");
+        hotel.printRoomsReport();
+        hotel.printTotalNumberOfDogsInHotel();
+        System.out.println("");
+
+        ExecutorService pool = Executors.newFixedThreadPool(1);
+
+        AdminThread admin1 = new AdminThread(0, eachAdmin);
+        AdminThread admin2 = new AdminThread(eachAdmin, totalOrder);
+
+        // pool.execute(admin);
+        admin1.start();
+        admin2.start();
+
+        admin2.join();
+        admin1.join();
+
+        WorkerRunnable wr1 = new WorkerRunnable();
+        //Thread[] threads = new Thread[1];
+
+        /* 		while (!exec.isTerminated() && !exec.isShutdown()) {
+        		  // create all Printer threads and start them 
+        		  for (int i = 0; i < 1; i++) {
+        			threads[i] = new WorkerRunnable(); // pass to constructor a number as a String
+        			exec.submit(threads[i]);
+        		  }
+        
+        		  // main thread will join all Printer threads
+        		  for (int i = 0; i < 1; i++) {
+        			try{
+        				threads[i].join();
+        			}catch(InterruptedException e){
+        				System.out.println(e);
+        			}
+        			//System.out.print("hello");
+        		  }
+        		  System.out.println("\nrunning last statement in main()...");
+        		  exec.shutdown();
+        		} */
+        WorkerRunnable wr2 = new WorkerRunnable();
+        WorkerRunnable wr3 = new WorkerRunnable();
+        WorkerRunnable wr4 = new WorkerRunnable();
+        WorkerRunnable wr5 = new WorkerRunnable();
+        WorkerRunnable wr6 = new WorkerRunnable();
+        wr1.start();
+        wr2.start();
+        wr3.start();
+        wr4.start();
+        wr5.start();
+        wr6.start();
+
+        try {
+            wr1.join();
+            wr2.join();
+            wr3.join();
+            wr4.join();
+            wr5.join();
+            wr6.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // pool.shutdown();
+        System.out.println("Time taken is : " + stopWatch.toString());
+        System.out.println("Pet Hotel Simulation ends...");
+        System.out.println("");
+        
+        hotel.printRoomsReport();
+        hotel.printTotalNumberOfDogsInHotel();
+
+        	//exec.shutdown();
 		for(int i = 0; i < hotel.getRoomList().size(); i++){
 			Room r = hotel.getRoomList().get(i);
 			System.out.println(i + " " + r.getNotGroomedDogs().size() + " supposed to be 0");
@@ -81,5 +113,19 @@ public class PetHotel{
 			System.out.println(i + " " + r.getAvailableFood());	
 		}
 		
+        // System.out.println(dogs);
+    
     }
+
+    public static List<Dog> getDogs(String fileName) throws IOException {
+        ArrayList<Dog> dogs = new ArrayList<Dog>();
+        Files.lines(Paths.get(fileName)).forEach(line -> {
+            // System.out.println(line);
+            dogs.add(new Dog(line));
+        });
+        return dogs;
+    }
+
+    
+	
 }

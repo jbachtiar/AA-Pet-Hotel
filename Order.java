@@ -3,30 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package objects;
 
 /**
  *
- * @author Hui Min
+ * @author Jeremy Bachtiar
  */
-package objects;
-
-public class Dog {
+public class Order {
     private String name;
     private String size;
     private int duration;
 
-    public Dog(String line) {
-        String[] temp = line.split(",");
-        this.name = temp[0];
-        this.size = temp[1];
-        this.duration = Integer.parseInt(temp[2]);
-    }
-
-    public Dog(String name, String size, int duration) {
-        this.name = name;
-        this.size = size;
-        this.duration = duration;
-    }
 
     public String getName() {
         return name;
@@ -52,4 +39,18 @@ public class Dog {
         this.duration = duration;
     }
 
+    public Order(String name, String size, int duration) {
+        this.name = name;
+        this.size = size;
+        this.duration = duration;
+    }
+
+    public Order(String line) {
+        String[] temp = line.split(",");
+        
+        this.name = temp[0];
+        this.size = temp[1];
+        this.duration = Integer.parseInt(temp[2]);
+      }
+    
 }
