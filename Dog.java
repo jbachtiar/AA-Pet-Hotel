@@ -17,7 +17,6 @@ public class Dog {
 
     public Dog(String line) {
         String[] temp = line.split(",");
-        
         this.name = temp[0];
         this.size = temp[1];
         this.duration = Integer.parseInt(temp[2]);

@@ -1,4 +1,3 @@
-<<<<<<< HEAD:Dog_Entries.csv
 Fifi,Small,2
 Ah Gou Gou,Medium,1
 Lucy,Large,3
@@ -86,107 +85,16 @@ Kent,Small,2
 Meryl,Small,3
 Quinn,Medium,1
 Nell,Large,3
-=======
-ID,Name,Size,Duration of Stay
-37,Fifi,Small,2
-2,Ah Gou Gou,Medium,1
-57,Lucy,Large,3
-79,Rocky,Extra Small,3
-88,Sophie,Medium,2
-5,Angel,Small,3
-65,Molly,Large,3
-8,Beethoven,Large,1
-11,Bingo,Extra Small,1
-27,Clifford,Large,2
-38,Goofy,Extra Small,1
-43,Happy,Large,1
-59,Marley,Small,2
-76,Pluto,Large,2
-71,Odie,Large,3
-83,Rover,Extra Small,2
-85,Sandy,Small,3
-86,Scooby-Doo,Extra Small,1
-87,Snoopy,Small,3
-95,Wishbone,Large,3
-21,Buster,Large,2
-41,Hachiko,Medium,1
-56,Lucky,Large,1
-36,Espresso,Extra Small,1
-12,Blade,Extra Small,2
-58,Lupin,Small,3
-64,Mitchi,Small,1
-70,Novie,Medium,2
-67,Money,Extra Small,1
-55,Leo,Large,3
-10,Bentley,Small,2
-34,Domo,Small,3
-26,Chubbi,Large,3
-9,Benji,Small,2
-16,Bolt,Small,2
-20,Buddy,Medium,1
-73,Otis,Small,2
-77,Pongo,Extra Small,1
-83,Rover,Large,3
-72,Oliver,Large,1
-83,Rover,Large,3
-23,Charlie,Large,2
-7,BB,Large,3
-66,Momo,Large,3
-28,Coffee,Extra Small,2
-35,Dou Dou,Extra Small,3
-61,Mei Mei,Large,2
-100,Zai Zai,Large,3
-15,Bobby,Large,3
-13,Bo Bo,Small,3
-14,Boba,Large,1
-6,BaoBei,Large,2
-91,Tofu,Extra Small,1
-98,XiaXue,Small,2
-31,Dan Dan,Large,3
-32,Dan Juan,Medium,1
-48,Jasmine,Large,1
-96,WoWo,Large,2
-92,Wan Chai,Small,1
-97,Xiao Long,Large,2
-75,Phooey,Extra Small,3
-93,Wang Shang,Medium,2
-1,Ah Fook,Large,3
-90,Tang Tang,Small,3
-40,Gui Gui,Large,1
-24,Cheeki,Large,2
-49,Jo Jo,Extra Small,3
-3,Akira,Large,1
-51,Keiko,Large,2
-53,KiKo,Medium,1
-25,Chiyo,Extra Small,1
-99,Yuka,Small,3
-54,Kimi,Large,3
-44,Haruto,Small,3
-89,Sora,Large,3
-45,Hinata,Small,1
-60,Mate,Large,1
-74,Pal,Large,3
-84,Ryo,Extra Small,3
-42,Haddy,Small,2
-30,Conor,Large,2
-18,Brady,Large,3
-80,Rogan,Medium,1
-52,Kent,Small,2
-62,Meryl,Small,3
-78,Quinn,Medium,1
-69,Nell,Large,3
-19,"Bridget
->>>>>>> master:Dog Entries.csv
-Maeve",Large,1
-94,Winnie,Large,3
-33,Diva,Small,1
-50,Keely,Large,2
-63,Mirna,Medium,3
-47,Iona,Large,3
-68,Neala,Large,3
-17,Bowden,Large,3
-46,Ian,Extra Small,3
-29,Colin,Large,3
-39,Griffin,Extra Small,3
-4,Alfie,Medium,3
-22,Cedric,Extra Small,3
+Maeve,Large,1
+Winnie,Large,3
+Diva,Small,1
+Keely,Large,2
+Mirna,Medium,3
+Iona,Large,3
+Neala,Large,3
+Bowden,Large,3
+Ian,Extra Small,3
+Colin,Large,3
+Griffin,Extra Small,3
+Alfie,Medium,3
+Cedric,Extra Small,3

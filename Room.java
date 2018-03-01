@@ -36,6 +36,28 @@ public class Room{
         return this.id;
     }
 
+    public void addGroomedDogs(Dog dog){
+        this.groomedDogs.add(dog);
+    }
+    public void addGuestsDogs(Dog dog){
+        this.guestsDogs.add(dog);
+    }
+    public void addNotGroomedDogs(Dog dog){
+        this.notGroomedDogs.add(dog);
+    }
+
+    public void removeGroomedDogs(Dog dog){
+        this.groomedDogs.remove(dog);
+    }
+    public void removeGuestsDogs(Dog dog){
+        this.guestsDogs.remove(dog);
+    }
+    public void removeNotGroomedDogs(Dog dog){
+        this.notGroomedDogs.remove(dog);
+    }
+
+
+
     // Restore the shampoo, food, and water supply
     public void restoreShampoo(){
         this.availShampoo = this.SHAMPOO;
@@ -103,5 +125,14 @@ public class Room{
 	
 	public void setGuestsDogs(ArrayList<Dog> guestsDogs){
 		this.guestsDogs = guestsDogs;
-	}
+    }
+    
+    // check if the room is fully occupied
+    public boolean isOccupied(){
+        if(this.CAPACITY == this.occupancy){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
