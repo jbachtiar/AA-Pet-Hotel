@@ -48,13 +48,13 @@ public class Room{
     }
 
     // Decrease the available food, water and shampoo by 1  
-    public void decreaseFood(){
+    public synchronized void decreaseFood(){
         this.availFood--;
     }
-    public void decreaseWater(){
+    public synchronized void decreaseWater(){
         this.availWater--;
     }
-    public void decreaseShampoo(){
+    public synchronized void decreaseShampoo(){
         this.availShampoo--;
     }
     // Get available food, water and shampoo
@@ -85,16 +85,18 @@ public class Room{
 		return this.groomedDogs;
 	}
 	
-	public void setGroomedDogs(ArrayList<Dog> groomedDogs){
+	public boolean setGroomedDogs(ArrayList<Dog> groomedDogs){
 		this.groomedDogs = groomedDogs;
+		return true;
 	}
 	
 	public ArrayList<Dog> getNotGroomedDogs(){
 		return this.notGroomedDogs;
 	}
 	
-	public void setNotGroomedDogs(ArrayList<Dog> notGroomedDogs){
+	public boolean setNotGroomedDogs(ArrayList<Dog> notGroomedDogs){
 		this.notGroomedDogs = notGroomedDogs;
+		return true;
 	}
 	
 	public ArrayList<Dog> getGuestsDogs(){

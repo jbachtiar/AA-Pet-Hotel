@@ -13,13 +13,10 @@ public class Hotel{
     public Hotel(int noOfRooms){
         this.noOfRooms = noOfRooms;
         for(int i = 1; i<=this.noOfRooms; i++){
-			if(i == 1){
-				Room r = new Room(1);
-				r.setNotGroomedDogs(new ArrayList<Dog>(){{ add(new Dog("Fifi", "Medium", 3));}});
-				roomList.add(r);
-			}else{
-				roomList.add(new Room(i));
-			}
+			Room r = new Room(i);
+			r.setNotGroomedDogs(new ArrayList<Dog>(){{ add(new Dog("Fifi", "Medium", 3));}});
+			r.setGuestsDogs(new ArrayList<Dog>(){{ add(new Dog("Fifi", "Medium", 3));}});
+			roomList.add(r);
         }
 		
 		dogGuide = new HashMap<String, ArrayList<String>>();
@@ -31,7 +28,7 @@ public class Hotel{
     }
 
     // retrieve room list
-    public ArrayList<Room> GetRoomList(){
+    public ArrayList<Room> getRoomList(){
         return this.roomList;
     }
 }
