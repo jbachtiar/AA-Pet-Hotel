@@ -24,9 +24,12 @@ public class PetHotel {
             e.printStackTrace();
         }
 
-        int noOfAdmin = 2;
+        int noOfAdmin = 4;
         int totalOrder = incomingDog1.size();
         int eachAdmin = totalOrder / noOfAdmin;
+
+        int start = 0;
+        int end = eachAdmin;
 
         // initialises hotel
         Hotel hotel = new Hotel(10);
@@ -40,17 +43,28 @@ public class PetHotel {
         hotel.printTotalNumberOfDogsInHotel();
         System.out.println("");
 
-        ExecutorService pool = Executors.newFixedThreadPool(1);
 
-        AdminThread admin1 = new AdminThread(0, eachAdmin);
-        AdminThread admin2 = new AdminThread(eachAdmin, totalOrder);
 
-        // pool.execute(admin);
-        admin1.start();
-        admin2.start();
 
-        admin2.join();
-        admin1.join();
+        Thread[] adminThread = new Thread[noOfAdmin];
+         // create all adminthreads
+         for (int i = 0; i < noOfAdmin; i++) {
+            if(i!=(noOfAdmin-1)){
+                adminThread[i] = new AdminThread(start, end); // pass to constructor, start and end index of incoming dog array
+                start = end;
+                end = start + eachAdmin;
+                adminThread[i].start();
+            }else{
+                adminThread[i] = new AdminThread(start, totalOrder);
+                adminThread[i].start();
+            }
+        }
+
+        // main thread will join all Admin threads
+        for (int i = 0; i < noOfAdmin; i++) {
+            adminThread[i].join();
+            //System.out.print("hello");
+        }
 
         WorkerRunnable wr1 = new WorkerRunnable();
         WorkerRunnable wr2 = new WorkerRunnable();
@@ -75,12 +89,11 @@ public class PetHotel {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        // pool.shutdown();
+       
         System.out.println("Time taken is : " + stopWatch.toString());
         System.out.println("Pet Hotel Simulation ends...");
         System.out.println("");
-        
+
         hotel.printRoomsReport();
         hotel.printTotalNumberOfDogsInHotel();
 
@@ -105,6 +118,5 @@ public class PetHotel {
         return dogs;
     }
 
-    
 	
 }
