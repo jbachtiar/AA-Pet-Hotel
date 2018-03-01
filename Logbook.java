@@ -13,10 +13,10 @@ import java.util.ArrayList;
  * @author Hui Min
  */
 public class Logbook {
-    private ArrayList<LogbookEntry> entries;
+    public static ArrayList<LogbookEntry> entries;
 
-    public Logbook(ArrayList<LogbookEntry> entries) {
-        this.entries = entries;
+    public Logbook() {
+        this.entries = new ArrayList<LogbookEntry>();
     }
 
     public ArrayList<LogbookEntry> getEntries() {

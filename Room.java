@@ -14,8 +14,9 @@ public class Room{
     private int availWater;
     private int availShampoo;
 
-    private List<Dog> guestDogs;
-    private List<Dog> groomedDogs;
+    private ArrayList<Dog> guestsDogs;
+    private ArrayList<Dog> groomedDogs;
+	private ArrayList<Dog> notGroomedDogs;
     
     // intialises empty room and full supply
     public Room(int id){
@@ -25,7 +26,8 @@ public class Room{
         this.availWater = this.WATER;
         this.availShampoo = this.SHAMPOO;
         this.groomedDogs = new ArrayList<Dog>();
-        this.guestDogs = new ArrayList<Dog>();
+        this.notGroomedDogs = new ArrayList<Dog>();
+		this.guestsDogs = new ArrayList<Dog>();
     }
     
 
@@ -78,4 +80,28 @@ public class Room{
     public int getOccupancy(){
         return this.occupancy;
     }
+	
+	public ArrayList<Dog> getGroomedDogs(){
+		return this.groomedDogs;
+	}
+	
+	public void setGroomedDogs(ArrayList<Dog> groomedDogs){
+		this.groomedDogs = groomedDogs;
+	}
+	
+	public ArrayList<Dog> getNotGroomedDogs(){
+		return this.notGroomedDogs;
+	}
+	
+	public void setNotGroomedDogs(ArrayList<Dog> notGroomedDogs){
+		this.notGroomedDogs = notGroomedDogs;
+	}
+	
+	public ArrayList<Dog> getGuestsDogs(){
+		return this.guestsDogs;
+	}
+	
+	public void setGuestsDogs(ArrayList<Dog> guestsDogs){
+		this.guestsDogs = guestsDogs;
+	}
 }
