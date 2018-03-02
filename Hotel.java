@@ -7,6 +7,7 @@ import objects.*;
 public class Hotel{
     public static ArrayList<Room> roomList = new ArrayList<Room>();
 	public static HashMap<String, ArrayList<String>> dogGuide;
+	public static HashMap<Integer, ArrayList<Integer>> roomGuide;
     private int noOfRooms;
 
     // create 10 rooms from id 1-10
@@ -26,6 +27,19 @@ public class Hotel{
 		dogGuide.put("Small", new ArrayList<String>(){{add("3"); add("2"); add("1"); add("4,5,6,7"); add("2");}});
 		dogGuide.put("Medium", new ArrayList<String>(){{add("5"); add("3"); add("2"); add("8,9"); add("4");}});
 		dogGuide.put("Large", new ArrayList<String>(){{add("7"); add("6"); add("3"); add("10"); add("5");}});
+		
+		roomGuide = new HashMap<Integer, ArrayList<Integer>>();
+		// roomID, food, water, shampoo
+		roomGuide.put(1, new ArrayList<Integer>(){{add(2); add(1); add(1);}});
+		roomGuide.put(2, new ArrayList<Integer>(){{add(2); add(1); add(1);}});
+		roomGuide.put(3, new ArrayList<Integer>(){{add(2); add(1); add(1);}});
+		roomGuide.put(4, new ArrayList<Integer>(){{add(3); add(2); add(1);}});
+		roomGuide.put(5, new ArrayList<Integer>(){{add(3); add(2); add(1);}});
+		roomGuide.put(6, new ArrayList<Integer>(){{add(3); add(2); add(1);}});
+		roomGuide.put(7, new ArrayList<Integer>(){{add(3); add(2); add(1);}});
+		roomGuide.put(8, new ArrayList<Integer>(){{add(5); add(3); add(2);}});
+		roomGuide.put(9, new ArrayList<Integer>(){{add(5); add(3); add(2);}});
+		roomGuide.put(10, new ArrayList<Integer>(){{add(7); add(6); add(3);}});
     }
 
     // retrieve room list
@@ -44,8 +58,14 @@ public class Hotel{
     }
 
     public void printRoomsReport(){
+		
         for(Room room: this.roomList){
+			System.out.println("");
             System.out.println("Room " + room.getId() + ", has " + room.getOccupancy() + " dogs.");
+			System.out.println("Food Inventory: " + room.getAvailableFood());
+			System.out.println("Water Inventory: " + room.getAvailableWater());
+			System.out.println("Shampoo Inventory: " + room.getAvailableShampoo());
+			System.out.println("");
         }
         System.out.println("");
     }
