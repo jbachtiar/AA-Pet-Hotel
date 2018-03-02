@@ -15,6 +15,7 @@ package runnable;
 import java.util.*;
 import main.*;
 import objects.*;
+import stopwatch.StopWatch;
 import dao.*;
 
 public class AdminThread extends Thread {
@@ -31,29 +32,32 @@ public class AdminThread extends Thread {
     public void run() {
         //read each row of csv to retrieve each order
         //identify the dog size and find an available room
+        while (StopWatch.getTime() <= 60000) {
+            HashMap<String, ArrayList<String>> dogGuide = Hotel.dogGuide;
+            for (int i = this.start; i < this.end; i++) {
+                Dog dog = PetHotel.incomingDog1.get(i);
+                String dogSize = dog.getSize();
+                String rooms = dogGuide.get(dogSize).get(3);
+                String[] roomIdString = rooms.split(",");
 
-        HashMap<String, ArrayList<String>> dogGuide = Hotel.dogGuide;
-
-        for (int i = this.start; i < this.end; i++) {
-            Dog dog = PetHotel.incomingDog1.get(i);
-            String dogSize = dog.getSize();
-            String rooms = dogGuide.get(dogSize).get(3);
-            String[] roomIdString = rooms.split(",");
-
-            int[] roomId = Arrays.stream(roomIdString).mapToInt(Integer::parseInt).toArray();
-            for (int id : roomId) {
-                // System.out.println(id);
-                Room room = Hotel.getRoomById(id);
-                if (!room.isOccupied()) {
-                    // System.out.println("Inserting dog...");
-                    try {
-                        insertDog(dog, room);
-                    } catch (InterruptedException e) {
-
+                int[] roomId = Arrays.stream(roomIdString).mapToInt(Integer::parseInt).toArray();
+                for (int id : roomId) {
+                    // System.out.println(id);
+                    Room room = Hotel.getRoomById(id);
+                    synchronized(room){
+                        if (!room.isOccupied()) {
+                            // System.out.println("Inserting dog...");
+                            try {
+                                insertDog(dog, room);
+                            } catch (InterruptedException e) {
+    
+                            }
+                            break;
+                        }
                     }
-                    break;
                 }
             }
+            return;
         }
 
         //if room is available, allocate a dog to a room and increase the room occupancy
@@ -67,7 +71,7 @@ public class AdminThread extends Thread {
         room.increaseOccupancy();
         room.addGuestsDogs(dog);
         room.addNotGroomedDogs(dog);
-        synchronized(dog) {
+        synchronized (dog) {
             LogbookEntry entry = new LogbookEntry(dog, room.getId(), PetHotel.day, PetHotel.day + dog.getDuration());
             Logbook.addEntry(entry);
         }
