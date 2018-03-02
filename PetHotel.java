@@ -99,13 +99,13 @@ public class PetHotel {
 
             for (int i = 0; i < hotel.getRoomList().size(); i++) {
                 Room r = hotel.getRoomList().get(i);
-                System.out.println(i + " " + r.getNotGroomedDogs().size() + " supposed to be 0");
+                System.out.println(i + " " + r.getNotGroomedDogsSize() + " supposed to be 0");
                 if (i == 0) {
                     for (Dog d : r.getNotGroomedDogs()) {
                         System.out.println(d.getName());
                     }
                 }
-                System.out.println(i + " " + r.getGroomedDogs().size() + " supposed to have " + r.getOccupancy());
+                System.out.println(i + " " + r.getGroomedDogsSize() + " supposed to have " + r.getOccupancy());
                 //System.out.println(i + " " + r.getAvailableFood());	
             }
 
