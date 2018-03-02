@@ -25,6 +25,7 @@ public class PetHotel {
         }
 
         int noOfAdmin = 4;
+        int noOfWorker = 6;
         int totalOrder = incomingDog1.size();
         int eachAdmin = totalOrder / noOfAdmin;
 
@@ -68,39 +69,23 @@ public class PetHotel {
                     adminThread[i].start();
                 }
             }
-
+            Thread[] workerThread = new Thread[noOfWorker];
+            for (int i = 0; i < noOfWorker; i++) {
+                workerThread[i] = new WorkerThread();
+                workerThread[i].start();
+            }
             // main thread will join all Admin threads
             for (int i = 0; i < noOfAdmin; i++) {
                 adminThread[i].join();
                 //System.out.print("hello");
             }
-
             // while (stopWatch.getTime() != 60000) {
             //     Thread.sleep(1);
             // }
-
-            WorkerRunnable wr1 = new WorkerRunnable();
-            WorkerRunnable wr2 = new WorkerRunnable();
-            WorkerRunnable wr3 = new WorkerRunnable();
-            WorkerRunnable wr4 = new WorkerRunnable();
-            WorkerRunnable wr5 = new WorkerRunnable();
-            WorkerRunnable wr6 = new WorkerRunnable();
-            wr1.start();
-            wr2.start();
-            wr3.start();
-            wr4.start();
-            wr5.start();
-            wr6.start();
-
-            try {
-                wr1.join();
-                wr2.join();
-                wr3.join();
-                wr4.join();
-                wr5.join();
-                wr6.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            
+            for (int i = 0; i < noOfWorker; i++) {
+                workerThread[i].join();
+                //System.out.print("hello");
             }
 
         
@@ -118,7 +103,7 @@ public class PetHotel {
             }
 
             stopWatch.stop();
-            System.out.println("Time taken is : " + stopWatch.toString());
+            System.out.println("Time taken is : " + StopWatch.print());
             System.out.println("\n---- END OF DAY 1 ----");
             System.out.println("");
 
