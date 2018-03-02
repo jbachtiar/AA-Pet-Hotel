@@ -38,6 +38,10 @@ public class Room{
         return this.id;
     }
 
+    public void resetGroomedDogs(){
+        this.groomedDogs = Collections.synchronizedList(new ArrayList<Dog>());
+    }
+
     public synchronized void addGroomedDogs(Dog dog){
         this.groomedDogs.add(dog);
     }

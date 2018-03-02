@@ -8,6 +8,8 @@ import stopwatch.*;
 import java.util.*;
 import java.util.concurrent.*;
 
+import javax.swing.border.EtchedBorder;
+
 import com.sun.javafx.binding.ListExpressionHelper;
 
 import java.io.*;
@@ -26,7 +28,7 @@ public class PetHotel {
         }
 
         int noOfAdmin = 4;
-        int noOfWorker = 6;
+        int noOfWorker = 8;
         int totalOrder = incomingDog1.size();
         int eachAdmin = totalOrder / noOfAdmin;
 
@@ -49,7 +51,7 @@ public class PetHotel {
 
         if (readString.equals("")) {
 
-            stopWatch.start();
+            StopWatch.start();
 
             System.out.println("Pet Hotel Simulation begins...\n");
             System.out.println("---- DAY 1 ----");
@@ -84,13 +86,12 @@ public class PetHotel {
             // while (stopWatch.getTime() != 60000) {
             //     Thread.sleep(1);
             // }
-            
+
             for (int i = 0; i < noOfWorker; i++) {
                 workerThread[i].join();
                 //System.out.print("hello");
             }
-            
-        
+
             //exec.shutdown();
             StopWatch.stop();
             System.out.println("Time taken is : " + StopWatch.print());
@@ -99,13 +100,13 @@ public class PetHotel {
 
             for (int i = 0; i < hotel.getRoomList().size(); i++) {
                 Room r = hotel.getRoomList().get(i);
-                System.out.println(i + " " + r.getNotGroomedDogs().size() + " supposed to be 0");
+                System.out.println(i + " " + r.getNotGroomedDogsSize() + " supposed to be 0");
                 if (i == 0) {
                     for (Dog d : r.getNotGroomedDogs()) {
                         System.out.println(d.getName());
                     }
                 }
-                System.out.println(i + " " + r.getGroomedDogs().size() + " supposed to have " + r.getOccupancy());
+                System.out.println(i + " " + r.getGroomedDogsSize() + " supposed to have " + r.getOccupancy());
                 //System.out.println(i + " " + r.getAvailableFood());	
             }
 
@@ -114,15 +115,73 @@ public class PetHotel {
             hotel.printTotalNumberOfDogsInHotel();
             //System.out.println("No of dogs in Logbook : " + Logbook.entries.size());
 
-            
-
         }
-        
+
         // ===================================== END OF DAY 1 =============================================
-
+        
+        
+        day = 2;
+        int noOfDogsRemoved = removeOverBooked(day);
+        reset();
 
         
+        System.out.println("\nPet Hotel Simulation begins...\n");
+        System.out.println("---- DAY 2 ----");
+        
+        for (int i = 0; i < hotel.getRoomList().size(); i++) {
+            Room r = hotel.getRoomList().get(i);
+            System.out.println(i + " " + r.getNotGroomedDogsSize() + " supposed to be 0");
+            if (i == 0) {
+                for (Dog d : r.getNotGroomedDogs()) {
+                    System.out.println(d.getName());
+                }
+            }
+            System.out.println(i + " " + r.getGroomedDogsSize() + " supposed to have " + r.getOccupancy());
+            //System.out.println(i + " " + r.getAvailableFood());	
+        }
+
+        System.out.println("");
+        hotel.printRoomsReport();
+        hotel.printTotalNumberOfDogsInHotel();
+
+        System.out.println("No of dogs removed in Day 1 : " + noOfDogsRemoved);
+
         // ===================================== START OF DAY 2 =============================================
+
+    }
+
+    public static void reset() {
+        for (Room room : Hotel.roomList) {
+            room.restoreFood();
+            room.restoreShampoo();
+            room.restoreWater();
+
+            room.setNotGroomedDogs(room.getGroomedDogs());
+            room.resetGroomedDogs();
+        }
+    }
+
+    public static int removeOverBooked(int day) {
+
+        int count = 0;
+        // remove over due dogs
+        Iterator<LogbookEntry> iter = Logbook.entries.iterator();
+
+        while (iter.hasNext()) {
+            LogbookEntry entry = iter.next();
+            if (entry.getEndDay() == PetHotel.day) {
+                Dog dog = entry.getDog();
+                int roomId = entry.getRoomID();
+                iter.remove();
+                Room room = Hotel.getRoomById(roomId);
+                room.removeGroomedDogs(dog);
+                room.removeGuestsDogs(dog);
+                room.decreaseOccupancy();
+                count++;
+            }    
+        }
+
+        return count;
 
     }
 

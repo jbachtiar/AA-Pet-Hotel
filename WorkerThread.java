@@ -27,7 +27,7 @@ public class WorkerThread extends Thread {
 	@Override
 	public void run() {
 		// if there is any dog, worker starts grooming
-		while (StopWatch.getTime() != 60000) {
+		while (StopWatch.getTime() <= 60000) {
 			// System.out.print(StopWatc	h.getTime());
 			for (Room r : Hotel.roomList) {
 				//check if there is any dogs in the notGroomedDogs list
