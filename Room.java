@@ -130,7 +130,7 @@ public class Room{
     }
     
     // check if the room is fully occupied
-    public boolean isOccupied(){
+    public synchronized boolean isOccupied(){
         if(this.CAPACITY == this.occupancy){
             return true;
         }else{

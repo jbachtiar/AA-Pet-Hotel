@@ -68,6 +68,6 @@ public class AdminThread extends Thread{
         room.addGuestsDogs(dog);
         room.addNotGroomedDogs(dog);
     
-        //Thread.sleep(500);
+        Thread.sleep(500);
     }
 }

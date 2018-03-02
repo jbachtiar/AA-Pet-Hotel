@@ -19,7 +19,7 @@ public class PetHotel {
     public static void main(String[] args) throws InterruptedException {
         // Read from csv files the order in day1
         try {
-            incomingDog1 = getDogs("Dog_Entries.csv");
+            incomingDog1 = getDogs("Dog_Entries_1.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,78 +35,104 @@ public class PetHotel {
         Hotel hotel = new Hotel(10);
 
         StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
+        Scanner scanner = new Scanner(System.in);
+        // for(int i = 0; i <= 12; i++){
+        //     System.out.println("        |                                                          |");
+        // }
+        // System.out.println("        ============================================================");
+        System.out.println("\n________________________________________________________________________\n");
+        System.out.println("Click enter to begin Pet Hotel Simulation.");
+        String readString = scanner.nextLine();
 
-        System.out.println("Pet Hotel Simulation begins...");
-        System.out.println("");
-        hotel.printRoomsReport();
-        hotel.printTotalNumberOfDogsInHotel();
-        System.out.println("");
+        if (readString.equals("")) {
 
+            stopWatch.start();
 
+            System.out.println("Pet Hotel Simulation begins...\n");
+            System.out.println("---- DAY 1 ----");
+            System.out.println("");
+            hotel.printRoomsReport();
+            hotel.printTotalNumberOfDogsInHotel();
+            System.out.println("");
 
-
-        Thread[] adminThread = new Thread[noOfAdmin];
-         // create all adminthreads
-         for (int i = 0; i < noOfAdmin; i++) {
-            if(i!=(noOfAdmin-1)){
-                adminThread[i] = new AdminThread(start, end); // pass to constructor, start and end index of incoming dog array
-                start = end;
-                end = start + eachAdmin;
-                adminThread[i].start();
-            }else{
-                adminThread[i] = new AdminThread(start, totalOrder);
-                adminThread[i].start();
+            Thread[] adminThread = new Thread[noOfAdmin];
+            // create all adminthreads
+            for (int i = 0; i < noOfAdmin; i++) {
+                if (i != (noOfAdmin - 1)) {
+                    adminThread[i] = new AdminThread(start, end); // pass to constructor, start and end index of incoming dog array
+                    start = end;
+                    end = start + eachAdmin;
+                    adminThread[i].start();
+                } else {
+                    adminThread[i] = new AdminThread(start, totalOrder);
+                    adminThread[i].start();
+                }
             }
+
+            // main thread will join all Admin threads
+            for (int i = 0; i < noOfAdmin; i++) {
+                adminThread[i].join();
+                //System.out.print("hello");
+            }
+            while (stopWatch.getTime() != 60000) {
+                Thread.sleep(1);
+            }
+
+            stopWatch.stop();
+            System.out.println("Time taken is : " + stopWatch.toString());
+            System.out.println("\n---- END OF DAY 1 ----");
+            System.out.println("");
+
+            hotel.printRoomsReport();
+            hotel.printTotalNumberOfDogsInHotel();
+
+
+            
         }
+        
+        
+      
+        // WorkerRunnable wr1 = new WorkerRunnable();
+        // WorkerRunnable wr2 = new WorkerRunnable();
+        // WorkerRunnable wr3 = new WorkerRunnable();
+        // WorkerRunnable wr4 = new WorkerRunnable();
+        // WorkerRunnable wr5 = new WorkerRunnable();
+        // WorkerRunnable wr6 = new WorkerRunnable();
+        // wr1.start();
+        // wr2.start();
+        // wr3.start();
+        // wr4.start();
+        // wr5.start();
+        // wr6.start();
 
-        // main thread will join all Admin threads
-        for (int i = 0; i < noOfAdmin; i++) {
-            adminThread[i].join();
-            //System.out.print("hello");
-        }
+        // try {
+        //     wr1.join();
+        //     wr2.join();
+        //     wr3.join();
+        //     wr4.join();
+        //     wr5.join();
+        //     wr6.join();
+        // } catch (InterruptedException e) {
+        //     e.printStackTrace();
+        // }
 
-        WorkerRunnable wr1 = new WorkerRunnable();
-        WorkerRunnable wr2 = new WorkerRunnable();
-        WorkerRunnable wr3 = new WorkerRunnable();
-        WorkerRunnable wr4 = new WorkerRunnable();
-        WorkerRunnable wr5 = new WorkerRunnable();
-        WorkerRunnable wr6 = new WorkerRunnable();
-        wr1.start();
-        wr2.start();
-        wr3.start();
-        wr4.start();
-        wr5.start();
-        wr6.start();
+        // System.out.println("Time taken is : " + stopWatch.toString());
+        // System.out.println("Pet Hotel Simulation ends...");
+        // System.out.println("");
 
-        try {
-            wr1.join();
-            wr2.join();
-            wr3.join();
-            wr4.join();
-            wr5.join();
-            wr6.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-       
-        System.out.println("Time taken is : " + stopWatch.toString());
-        System.out.println("Pet Hotel Simulation ends...");
-        System.out.println("");
+        // hotel.printRoomsReport();
+        // hotel.printTotalNumberOfDogsInHotel();
 
-        hotel.printRoomsReport();
-        hotel.printTotalNumberOfDogsInHotel();
+        // 	//exec.shutdown();
+        // for(int i = 0; i < hotel.getRoomList().size(); i++){
+        // 	Room r = hotel.getRoomList().get(i);
+        // 	System.out.println(i + " " + r.getNotGroomedDogs().size() + " supposed to be 0");
+        // 	System.out.println(i + " " + r.getGroomedDogs().size() + " supposed to have " + r.getOccupancy());
+        // 	System.out.println(i + " " + r.getAvailableFood());	
+        // }
 
-        	//exec.shutdown();
-		for(int i = 0; i < hotel.getRoomList().size(); i++){
-			Room r = hotel.getRoomList().get(i);
-			System.out.println(i + " " + r.getNotGroomedDogs().size() + " supposed to be 0");
-			System.out.println(i + " " + r.getGroomedDogs().size() + " supposed to have " + r.getOccupancy());
-			System.out.println(i + " " + r.getAvailableFood());	
-		}
-		
         // System.out.println(dogs);
-    
+
     }
 
     public static List<Dog> getDogs(String fileName) throws IOException {
@@ -118,5 +144,4 @@ public class PetHotel {
         return dogs;
     }
 
-	
 }
