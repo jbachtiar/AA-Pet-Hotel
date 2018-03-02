@@ -90,6 +90,11 @@ public class PetHotel {
 
         
             //exec.shutdown();
+            StopWatch.stop();
+            System.out.println("Time taken is : " + StopWatch.print());
+            System.out.println("\n---- END OF DAY 1 ----");
+            System.out.println("");
+
             for (int i = 0; i < hotel.getRoomList().size(); i++) {
                 Room r = hotel.getRoomList().get(i);
                 System.out.println(i + " " + r.getNotGroomedDogs().size() + " supposed to be 0");
@@ -102,11 +107,7 @@ public class PetHotel {
                 //System.out.println(i + " " + r.getAvailableFood());	
             }
 
-            stopWatch.stop();
-            System.out.println("Time taken is : " + StopWatch.print());
-            System.out.println("\n---- END OF DAY 1 ----");
             System.out.println("");
-
             hotel.printRoomsReport();
             hotel.printTotalNumberOfDogsInHotel();
 
