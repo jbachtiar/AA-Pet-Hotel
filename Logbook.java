@@ -1,6 +1,7 @@
 package dao;
 import objects.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,14 +13,17 @@ import java.util.ArrayList;
  *
  * @author Hui Min
  */
+import java.util.*;
+import objects.*;
+
 public class Logbook {
-    public static ArrayList<LogbookEntry> entries;
+    public static List<LogbookEntry> entries  = Collections.synchronizedList(new ArrayList<LogbookEntry>());
 
     public Logbook() {
-        this.entries = new ArrayList<LogbookEntry>();
+        // this.entries = Collections.synchronizedList(new ArrayList<LogbookEntry>());
     }
 
-    public ArrayList<LogbookEntry> getEntries() {
+    public List<LogbookEntry> getEntries() {
         return entries;
     }
 
@@ -37,7 +41,10 @@ public class Logbook {
         return false;
     }
     
-    public void addEntry(LogbookEntry e){
+    public synchronized static void addEntry(LogbookEntry e){
         entries.add(e);
+    }
+    public synchronized static void removeEntry(LogbookEntry e){
+        entries.remove(e);
     }
 }
