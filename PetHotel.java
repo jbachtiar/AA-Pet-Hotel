@@ -31,8 +31,8 @@ public class PetHotel {
         // initialises hotel
         Hotel hotel = new Hotel(10);
 
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
+        //StopWatch stopWatch = new StopWatch();
+        StopWatch.start();
 
         System.out.println("Pet Hotel Simulation begins...");
         System.out.println("");
@@ -77,7 +77,7 @@ public class PetHotel {
         }
 
         // pool.shutdown();
-        System.out.println("Time taken is : " + stopWatch.toString());
+        System.out.println("Time taken is : " + StopWatch.print());
         System.out.println("Pet Hotel Simulation ends...");
         System.out.println("");
         
@@ -88,8 +88,13 @@ public class PetHotel {
 		for(int i = 0; i < hotel.getRoomList().size(); i++){
 			Room r = hotel.getRoomList().get(i);
 			System.out.println(i + " " + r.getNotGroomedDogs().size() + " supposed to be 0");
+			if(i == 0){
+				for(Dog d : r.getNotGroomedDogs()){
+					System.out.println(d.getName());
+				}
+			}
 			System.out.println(i + " " + r.getGroomedDogs().size() + " supposed to have " + r.getOccupancy());
-			System.out.println(i + " " + r.getAvailableFood());	
+			//System.out.println(i + " " + r.getAvailableFood());	
 		}
 		
         // System.out.println(dogs);

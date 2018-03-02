@@ -1,5 +1,7 @@
 package objects;
 import java.util.*;
+import java.util.concurrent.*;
+
 public class Room{
     // Set room, food, water and shampoo capacity
     private final int CAPACITY = 10;
@@ -14,9 +16,9 @@ public class Room{
     private int availWater;
     private int availShampoo;
 
-    private ArrayList<Dog> guestsDogs;
-    private ArrayList<Dog> groomedDogs;
-	private ArrayList<Dog> notGroomedDogs;
+    private List<Dog> guestsDogs;
+    private List<Dog> groomedDogs;
+	private List<Dog> notGroomedDogs;
     
     // intialises empty room and full supply
     public Room(int id){
@@ -25,9 +27,9 @@ public class Room{
         this.availFood = this.FOOD;
         this.availWater = this.WATER;
         this.availShampoo = this.SHAMPOO;
-        this.groomedDogs = new ArrayList<Dog>();
-        this.notGroomedDogs = new ArrayList<Dog>();
-		this.guestsDogs = new ArrayList<Dog>();
+        this.groomedDogs = Collections.synchronizedList(new ArrayList<Dog>());
+        this.notGroomedDogs = Collections.synchronizedList(new ArrayList<Dog>());
+		this.guestsDogs = Collections.synchronizedList(new ArrayList<Dog>());
     }
     
 
@@ -103,29 +105,29 @@ public class Room{
         return this.occupancy;
     }
 	
-	public ArrayList<Dog> getGroomedDogs(){
+	public synchronized List<Dog> getGroomedDogs(){
 		return this.groomedDogs;
 	}
 	
-	public boolean setGroomedDogs(ArrayList<Dog> groomedDogs){
+	public synchronized boolean setGroomedDogs(List<Dog> groomedDogs){
 		this.groomedDogs = groomedDogs;
 		return true;
 	}
 	
-	public ArrayList<Dog> getNotGroomedDogs(){
+	public synchronized List<Dog> getNotGroomedDogs(){
 		return this.notGroomedDogs;
 	}
 	
-	public boolean setNotGroomedDogs(ArrayList<Dog> notGroomedDogs){
+	public synchronized boolean setNotGroomedDogs(List<Dog> notGroomedDogs){
 		this.notGroomedDogs = notGroomedDogs;
 		return true;
 	}
 	
-	public ArrayList<Dog> getGuestsDogs(){
+	public synchronized List<Dog> getGuestsDogs(){
 		return this.guestsDogs;
 	}
 	
-	public void setGuestsDogs(ArrayList<Dog> guestsDogs){
+	public synchronized void setGuestsDogs(List<Dog> guestsDogs){
 		this.guestsDogs = guestsDogs;
     }
     
@@ -137,4 +139,8 @@ public class Room{
             return false;
         }
     }
+	
+	public void addDog(int listID, Dog d){
+		
+	}
 }

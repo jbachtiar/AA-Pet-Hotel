@@ -2,8 +2,8 @@ package stopwatch;
 
 public class StopWatch {
 
-    private long start = 0;
-    private long end = 0;
+    public static long start = 0;
+    public static long end = 0;
     public final int id;
 
     // constructor
@@ -17,12 +17,12 @@ public class StopWatch {
     }
 
     // starts the stop watch
-    public void start() {
+    public static void start() {
         start = System.currentTimeMillis();
     }
 
     // Stops the watch, then returns the elapsed time.
-    public long stop() {
+    public static long stop() {
         end = System.currentTimeMillis();
         return getTime();
     }
@@ -32,7 +32,7 @@ public class StopWatch {
      * and end. If end() has not been called yet, returns milliseconds since
      * start was called (does not stop the watch)
      */
-    public long getTime() {
+    public static long getTime() {
         if (end == 0) {
             return System.currentTimeMillis() - start;
         } else {
@@ -41,21 +41,21 @@ public class StopWatch {
     }
 
     // sets start and end to 0
-    public void reset() {
+    public static void reset() {
         start = end = 0;
     }
     
     // get the Time in the appropriate units for printing purposes
     // the same as getTime(), except that this method returns a String instead. 
     // The String will be in this format "<xx>h, <xx>m, <xx>s, <xx>ms"
-    @Override
-    public String toString(){
+    
+    public static String print(){
       long time = getTime(); // time is now in milliseconds
       return convertTimeToString(time);
     }
     
     // takes in time in milliseconds and returns a String of this format: "<xx> hrs, <xx> mins, <xx> s, <xx> ms"
-    private String convertTimeToString(long time){
+    private static String convertTimeToString(long time){
       String displayString = "";
       
       // 3_600_000 ms = 1 hour
@@ -87,7 +87,7 @@ public class StopWatch {
     // takes in two timings (in milliseconds) and returns a String showing the absolute difference.
     // does not matter whether time1 or time2 is smaller.
     // The String will be in this format "<xx>h, <xx>m, <xx>s, <xx>ms"
-    public String getTimeDifferenceForDisplay(long time1, long time2){   
+    public static String getTimeDifferenceForDisplay(long time1, long time2){   
       return convertTimeToString(Math.abs(time1 - time2));  
     }      
 }
