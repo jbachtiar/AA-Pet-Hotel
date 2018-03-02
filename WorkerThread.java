@@ -32,14 +32,11 @@ public class WorkerThread extends Thread {
 				//if(r.getNotGroomedDogs().size() != 0){
 
 				while(r.getNotGroomedDogsSize()!=0){
-						Dog d = null;
-						synchronized(r){
-							d = r.getNotGroomedDogs(r.getNotGroomedDogsSize()-1);
+					Dog d = r.getNotGroomedDogs(r.getNotGroomedDogsSize()-1);
+					
+					//remove the dog from the notGroomedDogs list 
+					r.removeNotGroomedDogs(d);
 						
-							//remove the dog from the notGroomedDogs list 
-							r.removeNotGroomedDogs(d);
-						}
-
 					//get the list of requirements that the dog needs to use for food, water and shampoo
 					ArrayList<String> reference = Hotel.dogGuide.get(d.getSize());
 					//System.out.println(reference.get(0));
@@ -69,13 +66,10 @@ public class WorkerThread extends Thread {
 					// }catch(InterruptedException e){
 					// 	e.printStackTrace();
 					// }
-
-					synchronized (r) {
-						// add the groomed dogs into the arraylist in each room to keep track of the dogs that are groomed already.
-						List<Dog> groomedDogs = r.getGroomedDogs();
-						groomedDogs.add(d);
-						r.setGroomedDogs(groomedDogs);
-					}
+					
+					// add the groomed dogs into the arraylist in each room to keep track of the dogs that are groomed already.
+					r.addGroomedDogs(d);
+					
 					//System.out.println(r.getId());
 					break;
 				} //end for
