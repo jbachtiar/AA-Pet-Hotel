@@ -15,6 +15,7 @@ import java.nio.file.*;
 
 public class PetHotel {
     public static List<Dog> incomingDog1 = new ArrayList<Dog>();
+    public static int day = 1;
 
     public static void main(String[] args) throws InterruptedException {
         // Read from csv files the order in day1
@@ -37,6 +38,7 @@ public class PetHotel {
 
         StopWatch stopWatch = new StopWatch();
         Scanner scanner = new Scanner(System.in);
+        // ===================================== START OF DAY 1 =============================================
         // for(int i = 0; i <= 12; i++){
         //     System.out.println("        |                                                          |");
         // }
@@ -87,7 +89,7 @@ public class PetHotel {
                 workerThread[i].join();
                 //System.out.print("hello");
             }
-
+            
         
             //exec.shutdown();
             StopWatch.stop();
@@ -110,8 +112,17 @@ public class PetHotel {
             System.out.println("");
             hotel.printRoomsReport();
             hotel.printTotalNumberOfDogsInHotel();
+            //System.out.println("No of dogs in Logbook : " + Logbook.entries.size());
+
+            
 
         }
+        
+        // ===================================== END OF DAY 1 =============================================
+
+
+        
+        // ===================================== START OF DAY 2 =============================================
 
     }
 

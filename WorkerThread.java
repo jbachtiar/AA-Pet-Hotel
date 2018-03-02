@@ -71,12 +71,12 @@ public class WorkerThread extends Thread {
 					}
 
 					// worker thread will sleep according to the size of the dog while grooming to simulate that the worker is occupied.
-					// int sleep = Integer.parseInt(reference.get(4)) * 1000;
-					// try{
-					// 	Thread.sleep(sleep);
-					// }catch(InterruptedException e){
-					// 	e.printStackTrace();
-					// }
+					int sleep = Integer.parseInt(reference.get(4)) * 1000;
+					try{
+						Thread.sleep(sleep);
+					}catch(InterruptedException e){
+						e.printStackTrace();
+					}
 
 					// add the groomed dogs into the arraylist in each room to keep track of the dogs that are groomed already.
 					r.addGroomedDogs(d);
