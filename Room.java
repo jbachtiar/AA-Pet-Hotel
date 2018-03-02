@@ -38,23 +38,23 @@ public class Room{
         return this.id;
     }
 
-    public void addGroomedDogs(Dog dog){
+    public synchronized void addGroomedDogs(Dog dog){
         this.groomedDogs.add(dog);
     }
-    public void addGuestsDogs(Dog dog){
+    public synchronized void addGuestsDogs(Dog dog){
         this.guestsDogs.add(dog);
     }
-    public void addNotGroomedDogs(Dog dog){
+    public synchronized void addNotGroomedDogs(Dog dog){
         this.notGroomedDogs.add(dog);
     }
 
-    public void removeGroomedDogs(Dog dog){
+    public synchronized void removeGroomedDogs(Dog dog){
         this.groomedDogs.remove(dog);
     }
-    public void removeGuestsDogs(Dog dog){
+    public synchronized void removeGuestsDogs(Dog dog){
         this.guestsDogs.remove(dog);
     }
-    public void removeNotGroomedDogs(Dog dog){
+    public synchronized void removeNotGroomedDogs(Dog dog){
         this.notGroomedDogs.remove(dog);
     }
 
@@ -75,7 +75,7 @@ public class Room{
     public synchronized void decreaseFood(){
         this.availFood--;
     }
-    public synchronized void decreaseWater(){
+    public synchronized  void decreaseWater(){
         this.availWater--;
     }
     public synchronized void decreaseShampoo(){
@@ -93,11 +93,11 @@ public class Room{
     }
 
     // increase room occupancy by 1
-    public void increaseOccupancy(){
+    public synchronized void increaseOccupancy(){
         this.occupancy++;
     }
     // decerase room occupancy by 1
-    public void decreaseOccupancy(){
+    public synchronized void decreaseOccupancy(){
         this.occupancy--;
     }
     // get room occupancy
@@ -132,15 +132,12 @@ public class Room{
     }
     
     // check if the room is fully occupied
-    public boolean isOccupied(){
+    public synchronized boolean isOccupied(){
         if(this.CAPACITY == this.occupancy){
             return true;
         }else{
             return false;
         }
     }
-	
-	public void addDog(int listID, Dog d){
-		
-	}
+
 }
