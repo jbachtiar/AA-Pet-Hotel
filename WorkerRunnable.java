@@ -30,15 +30,13 @@ public class WorkerRunnable extends Thread{
 			//while(r.getGroomedDogs().size() != r.getGuestsDogs().size()){
 				//if(r.getNotGroomedDogs().size() != 0){
 					
-					while(r.getNotGroomedDogs().size()!=0){
+					while(r.getNotGroomedDogsSize()!=0){
 						Dog d = null;
 						synchronized(r){
-							d = r.getNotGroomedDogs().get(r.getNotGroomedDogs().size()-1);
+							d = r.getNotGroomedDogs(r.getNotGroomedDogsSize()-1);
 						
 							//remove the dog from the notGroomedDogs list 
-							List<Dog> ungroomedDogs = r.getNotGroomedDogs();
-							ungroomedDogs.remove(d);
-							r.setNotGroomedDogs(ungroomedDogs);
+							r.removeNotGroomedDogs(d);
 						}
 						
 						//get the list of requirements that the dog needs to use for food, water and shampoo

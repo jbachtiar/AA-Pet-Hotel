@@ -57,7 +57,26 @@ public class Room{
     public synchronized void removeNotGroomedDogs(Dog dog){
         this.notGroomedDogs.remove(dog);
     }
+	
+	public synchronized Dog getGroomedDogs(int index){
+        return this.groomedDogs.get(index);
+    }
+    public synchronized Dog getGuestsDogs(int index){
+        return this.guestsDogs.get(index);
+    }
+    public synchronized Dog getNotGroomedDogs(int index){
+        return this.notGroomedDogs.get(index);
+    }
 
+	public synchronized int getGroomedDogsSize(){
+        return this.groomedDogs.size();
+    }
+    public synchronized int getGuestsDogsSize(){
+        return this.guestsDogs.size();
+    }
+    public synchronized int getNotGroomedDogsSize(){
+        return this.notGroomedDogs.size();
+    }
 
 
     // Restore the shampoo, food, and water supply
