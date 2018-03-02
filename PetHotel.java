@@ -74,9 +74,9 @@ public class PetHotel {
                 adminThread[i].join();
                 //System.out.print("hello");
             }
-            while (stopWatch.getTime() != 60000) {
-                Thread.sleep(1);
-            }
+            // while (stopWatch.getTime() != 60000) {
+            //     Thread.sleep(1);
+            // }
 
             stopWatch.stop();
             System.out.println("Time taken is : " + stopWatch.toString());
