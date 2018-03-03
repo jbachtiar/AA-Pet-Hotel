@@ -43,11 +43,9 @@ public class AdminThread extends Thread {
 
                 int[] roomId = Arrays.stream(roomIdString).mapToInt(Integer::parseInt).toArray();
                 for (int id : roomId) {
-                    // System.out.println(id);
                     Room room = Hotel.getRoomById(id);
                     synchronized (room) {
                         if (!room.isOccupied()) {
-                            // System.out.println("Inserting dog...");
                             try {
                                 insertDog(dog, room);
                             } catch (InterruptedException e) {
@@ -57,10 +55,14 @@ public class AdminThread extends Thread {
                         }
                     }
                 }
+                
+				// check to ensure that the thread stops at 60000ms or more
                 if (StopWatch.getTime() >= 60000) {
                     break;
                 }
             }
+            
+			// check to ensure that the thread stops at 60000ms or more
             if (StopWatch.getTime() >= 60000) {
                 break;
             }
