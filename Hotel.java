@@ -60,12 +60,11 @@ public class Hotel{
     public void printRoomsReport(){
 		
         for(Room room: this.roomList){
-			System.out.println("");
-            System.out.println("Room " + room.getId() + ", has " + room.getOccupancy() + " dogs.");
-			System.out.println("Food Inventory: " + room.getAvailableFood());
-			System.out.println("Water Inventory: " + room.getAvailableWater());
-			System.out.println("Shampoo Inventory: " + room.getAvailableShampoo());
-			System.out.println("");
+            System.out.print("Room " + room.getId() + "\t:\t" + room.getOccupancy() + " dogs");
+			System.out.print("\t| Food Inventory: " + room.getAvailableFood());
+			System.out.print("\t| Water Inventory: " + room.getAvailableWater());
+			System.out.print("\t| Shampoo Inventory: " + room.getAvailableShampoo());
+			System.out.println("\n");
         }
         System.out.println("");
     }
@@ -97,7 +96,7 @@ public class Hotel{
 			break;
 			
 			case 3: 
-			expectedDogs = 69;
+			expectedDogs = 100;
 			break;
 		}
 		if(total == expectedDogs){
@@ -151,3 +150,4 @@ public class Hotel{
 		return returnText;
 	}
 }
+

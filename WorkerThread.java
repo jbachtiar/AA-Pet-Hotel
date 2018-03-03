@@ -11,6 +11,7 @@
 package runnable;
 
 import dao.*;
+import main.PetHotel;
 import objects.*;
 import java.util.*;
 
@@ -26,14 +27,8 @@ public class WorkerThread extends Thread {
 
 	@Override
 	public void run() {
-		// if there is any dog, worker starts grooming
-		while (StopWatch.getTime() <= 60000) {
-			// System.out.print(StopWatc	h.getTime());
+		while (StopWatch.getTime() < 60000) {
 			for (Room r : Hotel.roomList) {
-				//check if there is any dogs in the notGroomedDogs list
-				//while(r.getGroomedDogs().size() != r.getGuestsDogs().size()){
-				//if(r.getNotGroomedDogs().size() != 0){
-
 				while (r.getNotGroomedDogsSize() != 0) {
 					Dog d = null;
 					synchronized (r) {
@@ -43,21 +38,19 @@ public class WorkerThread extends Thread {
 							//remove the dog from the notGroomedDogs list 
 							r.removeNotGroomedDogs(d);
 
-						}
-						else{
+						} else {
 							continue;
 						}
 					}
 					//get the list of requirements that the dog needs to use for food, water and shampoo
 					ArrayList<String> reference = Hotel.dogGuide.get(d.getSize());
-					//System.out.println(reference.get(0));
 
 					// while grooming, the worker will reduce the supply of food
 					int food = Integer.parseInt(reference.get(0));
 					for (int i = 0; i < food; i++) {
 						r.decreaseFood();
 					}
-					//System.out.println("food: " + r.getAvailableFood());
+
 					//reduce water
 					int water = Integer.parseInt(reference.get(1));
 					for (int i = 0; i < water; i++) {
@@ -72,9 +65,9 @@ public class WorkerThread extends Thread {
 
 					// worker thread will sleep according to the size of the dog while grooming to simulate that the worker is occupied.
 					int sleep = Integer.parseInt(reference.get(4)) * 1000;
-					try{
+					try {
 						Thread.sleep(sleep);
-					}catch(InterruptedException e){
+					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 
@@ -86,9 +79,13 @@ public class WorkerThread extends Thread {
 				} //end for
 
 				//}//end while
-
+				if (StopWatch.getTime() >= 60000) {
+					break;
+				}
 			} //end for
+			if (StopWatch.getTime() >= 60000) {
+				break;
+			}
 		}
-
 	}
 }

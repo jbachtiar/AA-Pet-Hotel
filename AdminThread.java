@@ -32,7 +32,7 @@ public class AdminThread extends Thread {
     public void run() {
         //read each row of csv to retrieve each order
         //identify the dog size and find an available room
-        while (StopWatch.getTime() <= 60000) {
+        while (StopWatch.getTime() < 60000) {
             HashMap<String, ArrayList<String>> dogGuide = Hotel.dogGuide;
             for (int i = this.start; i < this.end; i++) {
                 Dog dog = PetHotel.incomingDog1.get(i);
@@ -44,18 +44,24 @@ public class AdminThread extends Thread {
                 for (int id : roomId) {
                     // System.out.println(id);
                     Room room = Hotel.getRoomById(id);
-                    synchronized(room){
+                    synchronized (room) {
                         if (!room.isOccupied()) {
                             // System.out.println("Inserting dog...");
                             try {
                                 insertDog(dog, room);
                             } catch (InterruptedException e) {
-    
+
                             }
                             break;
                         }
                     }
                 }
+                if (StopWatch.getTime() >= 60000) {
+                    break;
+                }
+            }
+            if (StopWatch.getTime() >= 60000) {
+                break;
             }
             return;
         }
