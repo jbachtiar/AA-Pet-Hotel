@@ -20,31 +20,21 @@ public class Logbook {
     public static List<LogbookEntry> entries  = Collections.synchronizedList(new ArrayList<LogbookEntry>());
 
     public Logbook() {
-        // this.entries = Collections.synchronizedList(new ArrayList<LogbookEntry>());
+
     }
 
+    // get all the entries in the logbook
     public List<LogbookEntry> getEntries() {
         return entries;
     }
 
+    // set entries
     public void setEntries(ArrayList<LogbookEntry> entries) {
         this.entries = entries;
     }
     
-    public boolean deleteEntry(Dog dog){
-        for(LogbookEntry e: entries){
-            if(e.getDog().getName().equals(dog.getName())){
-                entries.remove(e);
-                return true;
-            }
-        }
-        return false;
-    }
-    
+    // add new entry to the logbook
     public synchronized static void addEntry(LogbookEntry e){
         entries.add(e);
-    }
-    public synchronized static void removeEntry(LogbookEntry e){
-        entries.remove(e);
     }
 }
