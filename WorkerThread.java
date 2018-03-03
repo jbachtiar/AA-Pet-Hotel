@@ -27,8 +27,11 @@ public class WorkerThread extends Thread {
 
 	@Override
 	public void run() {
+		// while loop to ensure that the thread stops at 60000ms or more
 		while (StopWatch.getTime() < 60000) {
+			// run through all the room in the hotel
 			for (Room r : Hotel.roomList) {
+				// while there are still dogs that are not groom, worker begins to groom
 				while (r.getNotGroomedDogsSize() != 0) {
 					Dog d = null;
 					synchronized (r) {
@@ -39,6 +42,7 @@ public class WorkerThread extends Thread {
 							r.removeNotGroomedDogs(d);
 
 						} else {
+							// if no more dogs left, continue to check the next room
 							continue;
 						}
 					}
@@ -57,7 +61,7 @@ public class WorkerThread extends Thread {
 						r.decreaseWater();
 					}
 
-					//reduce shampoo within a room according to the requirement of the different dog sizes
+					// reduce shampoo within a room according to the requirement of the different dog sizes
 					int shampoo = Integer.parseInt(reference.get(2));
 					for (int i = 0; i < shampoo; i++) {
 						r.decreaseShampoo();
@@ -74,15 +78,15 @@ public class WorkerThread extends Thread {
 					// add the groomed dogs into the arraylist in each room to keep track of the dogs that are groomed already.
 					r.addGroomedDogs(d);
 
-					//System.out.println(r.getId());
-					// break;
 				} //end for
-
-				//}//end while
+				
+				// check to ensure that the thread stops at 60000ms or more
 				if (StopWatch.getTime() >= 60000) {
 					break;
 				}
 			} //end for
+			
+			// check to ensure that the thread stops at 60000ms or more
 			if (StopWatch.getTime() >= 60000) {
 				break;
 			}

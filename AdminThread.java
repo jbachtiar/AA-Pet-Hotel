@@ -23,6 +23,7 @@ public class AdminThread extends Thread {
     private int start;
     private int end;
 
+    // intialises admin thread with start and end index of the incomingDog array list
     public AdminThread(int s, int e) {
         this.start = s;
         this.end = e;
@@ -66,13 +67,11 @@ public class AdminThread extends Thread {
             return;
         }
 
-        //if room is available, allocate a dog to a room and increase the room occupancy
-        //ad log book entry to log book for each successful orders
-        // if room is unvailable, order is rejected.
-
-        //at the end of the day, check which dog needs to leave on the next day
+      
     }
 
+    // insert dog into a room in the hotel, increase the room occupancy, add dog to the guest and not groomed dog list
+    // also add dog into the logbook
     public void insertDog(Dog dog, Room room) throws InterruptedException {
         room.increaseOccupancy();
         room.addGuestsDogs(dog);
