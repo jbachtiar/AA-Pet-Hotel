@@ -1,1 +1,3 @@
 javac -d . *.java
+
+pause;

@@ -1,7 +1,7 @@
 package dao;
 
 import java.util.*;
-
+import main.*;
 import objects.*;
 
 public class Hotel{
@@ -77,4 +77,77 @@ public class Hotel{
         }
         System.out.println("Hotel has " + total + " dogs staying currently.");
     }
+	
+	public String checkNumDogsEntered(){
+		//check no. of dogs that checked in the hotel at Day 1. 
+		int total = 0;
+        for(Room room: this.roomList){
+            total += room.getOccupancy();
+        }
+		int day = PetHotel.day;
+		int expectedDogs = 0;
+		
+		switch(day){
+			case 1:
+			expectedDogs = 64;
+			break;
+			
+			case 2: 
+			expectedDogs = 100;
+			break;
+			
+			case 3: 
+			expectedDogs = 69;
+			break;
+		}
+		if(total == expectedDogs){
+			return "OK";
+		}
+		return "Day " + day + " expects that " + expectedDogs + " dogs to be checked in. Actual: " + total;
+	}
+	
+	public String checkNumGroomedDogs(){
+		String returnText = "";
+        for(Room room: this.roomList){
+			if(room.getNotGroomedDogsSize() != 0 ){
+				returnText += "\nRoom " + room.getId() + " : " + room.getNotGroomedDogsSize() + " dogs are not groomed. \n";
+				if(room.getGroomedDogsSize() != room.getGuestsDogsSize()){
+					returnText += "Room " + room.getId() + " : " + room.getGroomedDogsSize() + " dogs are groomed. \n";
+					returnText += "Room " + room.getId() + " : " + room.getGuestsDogsSize() + " dogs are in the room. \n";
+				}
+			}
+		}
+		if(returnText.equals("")){
+			returnText = "OK";
+		}
+		return returnText;
+	}
+	
+	public String checkInventory(){
+		int occupancy = 0;
+		int foodLeft = 0;
+		int waterLeft = 0;
+		int shampooLeft = 0;
+		String returnText = "";
+		for(Room room: this.roomList){
+			occupancy = room.getOccupancy();
+			foodLeft = 100 - (occupancy * roomGuide.get(room.getId()).get(0));
+			waterLeft = 100 - (occupancy * roomGuide.get(room.getId()).get(1));
+			shampooLeft = 100 - (occupancy * roomGuide.get(room.getId()).get(2));
+			if(room.getAvailableFood() != foodLeft ){
+				returnText += "\n Room " + room.getId() + ": \t\t Expected  \t Actual \n Food Inventory: \t " + foodLeft + "\t \t " + room.getAvailableFood();
+				if(room.getAvailableWater() != waterLeft){
+					returnText += "\n Water Inventory: \t " + waterLeft + "\t \t " + room.getAvailableWater();
+					if(room.getAvailableShampoo() != shampooLeft){
+						returnText += "\n Shampoo Inventory: \t " + shampooLeft + "\t \t " + room.getAvailableShampoo() + "\n";
+					}
+				}
+			}
+		}
+		
+		if(returnText.equals("")){
+			returnText = "OK";
+		}
+		return returnText;
+	}
 }

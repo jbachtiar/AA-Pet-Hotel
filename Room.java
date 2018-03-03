@@ -1,6 +1,7 @@
 package objects;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.*;
 
 public class Room{
     // Set room, food, water and shampoo capacity
@@ -10,11 +11,16 @@ public class Room{
     private final int SHAMPOO = 100;
     
     private int id;
-    private int occupancy;
+    private AtomicInteger occupancy;
 
-    private int availFood;
+	private AtomicInteger availFood;
+    private AtomicInteger availWater;
+    private AtomicInteger availShampoo;
+	
+	
+/*     private int availFood;
     private int availWater;
-    private int availShampoo;
+    private int availShampoo; */
 
     private List<Dog> guestsDogs;
     private List<Dog> groomedDogs;
@@ -23,10 +29,10 @@ public class Room{
     // intialises empty room and full supply
     public Room(int id){
         this.id = id;
-        this.occupancy = 0;
-        this.availFood = this.FOOD;
-        this.availWater = this.WATER;
-        this.availShampoo = this.SHAMPOO;
+        this.occupancy = new AtomicInteger(0);
+        this.availFood = new AtomicInteger(this.FOOD);
+        this.availWater = new AtomicInteger(this.WATER);
+        this.availShampoo = new AtomicInteger(this.SHAMPOO);
         this.groomedDogs = Collections.synchronizedList(new ArrayList<Dog>());
         this.notGroomedDogs = Collections.synchronizedList(new ArrayList<Dog>());
 		this.guestsDogs = Collections.synchronizedList(new ArrayList<Dog>());
@@ -85,47 +91,48 @@ public class Room{
 
     // Restore the shampoo, food, and water supply
     public void restoreShampoo(){
-        this.availShampoo = this.SHAMPOO;
+        this.availShampoo.set(this.SHAMPOO);
     }
     public void restoreFood(){
-        this.availFood = this.FOOD;
+        this.availFood.set(this.FOOD);
     }
     public void restoreWater(){
-        this.availWater = this.WATER;
+        this.availWater.set(this.WATER);
     }
 
     // Decrease the available food, water and shampoo by 1  
-    public synchronized void decreaseFood(){
-        this.availFood--;
+    public void decreaseFood(){
+        this.availFood.getAndDecrement();
     }
-    public synchronized  void decreaseWater(){
-        this.availWater--;
+    public void decreaseWater(){
+        this.availWater.getAndDecrement();
     }
-    public synchronized void decreaseShampoo(){
-        this.availShampoo--;
+    public void decreaseShampoo(){
+        this.availShampoo.getAndDecrement();
     }
+	
     // Get available food, water and shampoo
     public int getAvailableFood(){
-        return this.availFood;
+        return this.availFood.get();
     }
     public int getAvailableWater(){
-        return this.availWater;
+        return this.availWater.get();
     }
     public int getAvailableShampoo(){
-        return this.availShampoo;
+        return this.availShampoo.get();
     }
 
     // increase room occupancy by 1
-    public synchronized void increaseOccupancy(){
-        this.occupancy++;
+    public void increaseOccupancy(){
+        this.occupancy.getAndIncrement();
     }
     // decerase room occupancy by 1
-    public synchronized void decreaseOccupancy(){
-        this.occupancy--;
+    public void decreaseOccupancy(){
+        this.occupancy.getAndDecrement();
     }
     // get room occupancy
     public int getOccupancy(){
-        return this.occupancy;
+        return this.occupancy.get();
     }
 	
 	public synchronized List<Dog> getGroomedDogs(){
@@ -156,7 +163,7 @@ public class Room{
     
     // check if the room is fully occupied
     public synchronized boolean isOccupied(){
-        if(this.CAPACITY == this.occupancy){
+        if(this.CAPACITY == this.occupancy.get()){
             return true;
         }else{
             return false;

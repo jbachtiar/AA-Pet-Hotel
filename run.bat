@@ -1,1 +1,3 @@
 java main.PetHotel
+
+pause;

@@ -20,6 +20,19 @@ public class PetHotel {
     public static int day = 1;
 
     public static void main(String[] args) throws InterruptedException {
+		System.out.println("Optimal number of Admins is 4");
+		System.out.println("Optimal number of Workers is 8");
+		
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("Enter the no. of Admin/s: ");  
+		int noOfAdmin = sc.nextInt();  
+		System.out.println("No. of Admin/s keyed in: " + noOfAdmin);  
+		
+		System.out.println("Enter the no. of Worker/s: ");  
+		int noOfWorker = sc.nextInt();  
+		System.out.println("No. of Worker/s keyed in: " + noOfWorker);  
+		
         // Read from csv files the order in day1
         try {
             incomingDog1 = getDogs("Dog_Entries_1.csv");
@@ -27,8 +40,8 @@ public class PetHotel {
             e.printStackTrace();
         }
 
-        int noOfAdmin = 4;
-        int noOfWorker = 8;
+/*         int noOfAdmin = 1;
+        int noOfWorker = 1; */
         int totalOrder = incomingDog1.size();
         int eachAdmin = totalOrder / noOfAdmin;
 
@@ -96,6 +109,7 @@ public class PetHotel {
             System.out.println("Time taken is : " + StopWatch.print());
             System.out.println("\n---- END OF DAY 1 ----");
             System.out.println("");
+			
 
             for (int i = 0; i < hotel.getRoomList().size(); i++) {
                 Room r = hotel.getRoomList().get(i);
@@ -112,13 +126,30 @@ public class PetHotel {
             System.out.println("");
             hotel.printRoomsReport();
             hotel.printTotalNumberOfDogsInHotel();
+			
             //System.out.println("No of dogs in Logbook : " + Logbook.entries.size());
-
+			if(hotel.checkNumDogsEntered().equals("OK") && hotel.checkNumGroomedDogs().equals("OK") && hotel.checkInventory().equals("OK")){
+				System.out.println("Day " + PetHotel.day + " has ended! The job has been successfully completed!\n");
+			}else{
+				System.out.println("Error!! Day" + PetHotel.day + "'s job could not be completedly successfully!");
+				System.out.println("Please try again!");
+				System.out.println("Errors that occurred are at: ");
+				if(!hotel.checkNumDogsEntered().equals("OK")){
+					System.out.println(hotel.checkNumDogsEntered());
+				}
+				if(!hotel.checkNumGroomedDogs().equals("OK")){
+					System.out.println(hotel.checkNumGroomedDogs());
+				}
+				if(!hotel.checkInventory().equals("OK")){
+					System.out.println(hotel.checkInventory());
+				}
+			}
         }
 
         // ===================================== END OF DAY 1 =============================================
         
         StopWatch.reset();
+		
         // System.out.println("Current time : " + StopWatch.print());
         day = 2;
         int noOfDogsRemoved = removeOverBooked(day);
@@ -145,7 +176,7 @@ public class PetHotel {
         if (readString.equals("")) {
             StopWatch.start();
             System.out.println("\nPet Hotel Simulation begins...\n");
-            System.out.println("No of dogs removed in Day 1 : " + noOfDogsRemoved);
+            System.out.println("No of dogs that left in Day 1 : " + noOfDogsRemoved);
             System.out.println("\n---- DAY 2 ----");
 
             System.out.println("");
@@ -204,6 +235,24 @@ public class PetHotel {
             System.out.println("");
             hotel.printRoomsReport();
             hotel.printTotalNumberOfDogsInHotel();
+			
+			//checks for the integrity of the output
+			if(hotel.checkNumDogsEntered().equals("OK") && hotel.checkNumGroomedDogs().equals("OK") && hotel.checkInventory().equals("OK")){
+				System.out.println("Day " + PetHotel.day + " has ended! The job has been successfully completed!\n");
+			}else{
+				System.out.println("Error!! Day" + PetHotel.day + "'s job could not be completedly successfully!");
+				System.out.println("Please try again!");
+				System.out.println("Errors that occurred are at: ");
+				if(!hotel.checkNumDogsEntered().equals("OK")){
+					System.out.println(hotel.checkNumDogsEntered());
+				}
+				if(!hotel.checkNumGroomedDogs().equals("OK")){
+					System.out.println(hotel.checkNumGroomedDogs());
+				}
+				if(!hotel.checkInventory().equals("OK")){
+					System.out.println(hotel.checkInventory());
+				}
+			}
 
         }
 
@@ -236,7 +285,7 @@ public class PetHotel {
          if (readString.equals("")) {
              StopWatch.start();
              System.out.println("\nPet Hotel Simulation begins...\n");
-             System.out.println("No of dogs removed in Day 2 : " + noOfDogsRemoved);
+             System.out.println("No of dogs that left in Day 2 : " + noOfDogsRemoved);
              System.out.println("\n---- DAY 3 ----");
  
              System.out.println("");
