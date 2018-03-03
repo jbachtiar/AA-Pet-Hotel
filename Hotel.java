@@ -20,14 +20,17 @@ public class Hotel{
             // System.out.println(room.getId());
             roomList.add(room);
         }
-		
-		dogGuide = new HashMap<String, ArrayList<String>>();
-		// size, food, water, shampoo, roomIDs for these dogs, time taken
+        
+        // create a dogGuide hashmap to find out consumption and time taken to groom a particular size dog
+        dogGuide = new HashMap<String, ArrayList<String>>();
+        
+		// HASH - Key : size | value =  (food, water, shampoo, roomIDs for these dogs, time taken)
 		dogGuide.put("Extra Small", new ArrayList<String>(){{add("2"); add("1"); add("1"); add("1,2,3"); add("2");}});
 		dogGuide.put("Small", new ArrayList<String>(){{add("3"); add("2"); add("1"); add("4,5,6,7"); add("2");}});
 		dogGuide.put("Medium", new ArrayList<String>(){{add("5"); add("3"); add("2"); add("8,9"); add("4");}});
 		dogGuide.put("Large", new ArrayList<String>(){{add("7"); add("6"); add("3"); add("10"); add("5");}});
-		
+        
+        // create a room guide with room Id as key and the consumption of each supply
 		roomGuide = new HashMap<Integer, ArrayList<Integer>>();
 		// roomID, food, water, shampoo
 		roomGuide.put(1, new ArrayList<Integer>(){{add(2); add(1); add(1);}});
@@ -57,19 +60,20 @@ public class Hotel{
         return null;
     }
 
+    // print room report - occupancy, food, water and shampoo
     public void printRoomsReport(){
 		
         for(Room room: this.roomList){
-			System.out.println("");
-            System.out.println("Room " + room.getId() + ", has " + room.getOccupancy() + " dogs.");
-			System.out.println("Food Inventory: " + room.getAvailableFood());
-			System.out.println("Water Inventory: " + room.getAvailableWater());
-			System.out.println("Shampoo Inventory: " + room.getAvailableShampoo());
-			System.out.println("");
+            System.out.print("Room " + room.getId() + "\t:\t" + room.getOccupancy() + " dogs");
+			System.out.print("\t| Food Inventory: " + room.getAvailableFood());
+			System.out.print("\t| Water Inventory: " + room.getAvailableWater());
+			System.out.print("\t| Shampoo Inventory: " + room.getAvailableShampoo());
+			System.out.println("\n");
         }
         System.out.println("");
     }
 
+    // print the number of dogs currently staying at the hotel
     public void printTotalNumberOfDogsInHotel(){
         int total = 0;
         for(Room room: this.roomList){
@@ -77,7 +81,8 @@ public class Hotel{
         }
         System.out.println("Hotel has " + total + " dogs staying currently.");
     }
-	
+    
+    // check the number of dogs thas has been entered in a particular day
 	public String checkNumDogsEntered(){
 		//check no. of dogs that checked in the hotel at Day 1. 
 		int total = 0;
@@ -97,7 +102,7 @@ public class Hotel{
 			break;
 			
 			case 3: 
-			expectedDogs = 69;
+			expectedDogs = 100;
 			break;
 		}
 		if(total == expectedDogs){
@@ -105,7 +110,8 @@ public class Hotel{
 		}
 		return "Day " + day + " expects that " + expectedDogs + " dogs to be checked in. Actual: " + total;
 	}
-	
+    
+    // check if the no of groomed dogs at the end of the day is correct
 	public String checkNumGroomedDogs(){
 		String returnText = "";
         for(Room room: this.roomList){
@@ -122,7 +128,8 @@ public class Hotel{
 		}
 		return returnText;
 	}
-	
+    
+    // check if the leftover inventory at the end of the day is correct
 	public String checkInventory(){
 		int occupancy = 0;
 		int foodLeft = 0;
@@ -151,3 +158,4 @@ public class Hotel{
 		return returnText;
 	}
 }
+

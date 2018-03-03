@@ -23,6 +23,7 @@ public class AdminThread extends Thread {
     private int start;
     private int end;
 
+    // intialises admin thread with start and end index of the incomingDog array list
     public AdminThread(int s, int e) {
         this.start = s;
         this.end = e;
@@ -32,7 +33,7 @@ public class AdminThread extends Thread {
     public void run() {
         //read each row of csv to retrieve each order
         //identify the dog size and find an available room
-        while (StopWatch.getTime() <= 60000) {
+        while (StopWatch.getTime() < 60000) {
             HashMap<String, ArrayList<String>> dogGuide = Hotel.dogGuide;
             for (int i = this.start; i < this.end; i++) {
                 Dog dog = PetHotel.incomingDog1.get(i);
@@ -44,29 +45,33 @@ public class AdminThread extends Thread {
                 for (int id : roomId) {
                     // System.out.println(id);
                     Room room = Hotel.getRoomById(id);
-                    synchronized(room){
+                    synchronized (room) {
                         if (!room.isOccupied()) {
                             // System.out.println("Inserting dog...");
                             try {
                                 insertDog(dog, room);
                             } catch (InterruptedException e) {
-    
+
                             }
                             break;
                         }
                     }
                 }
+                if (StopWatch.getTime() >= 60000) {
+                    break;
+                }
+            }
+            if (StopWatch.getTime() >= 60000) {
+                break;
             }
             return;
         }
 
-        //if room is available, allocate a dog to a room and increase the room occupancy
-        //ad log book entry to log book for each successful orders
-        // if room is unvailable, order is rejected.
-
-        //at the end of the day, check which dog needs to leave on the next day
+      
     }
 
+    // insert dog into a room in the hotel, increase the room occupancy, add dog to the guest and not groomed dog list
+    // also add dog into the logbook
     public void insertDog(Dog dog, Room room) throws InterruptedException {
         room.increaseOccupancy();
         room.addGuestsDogs(dog);
